@@ -3,9 +3,11 @@
 import { cn } from "@/lib/utils";
 import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Router, Settings, VideoIcon } from "lucide-react";
 import { Montserrat } from "next/font/google";
+import { usePathname } from "next/navigation";
+import { FreeCounter } from "./free-counter";
+
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const montserrat = Montserrat({
   weight: "600",
@@ -56,7 +58,15 @@ const routes = [
     },
 ];
 
-const Sidebar = () => {
+interface SidebarProps {
+  apiLimitCount: number,
+  isPro: boolean,
+}
+
+const Sidebar = ({
+  apiLimitCount = 0,
+  isPro = false,
+}: SidebarProps) => {
 
   const pathname = usePathname();
 
@@ -99,6 +109,10 @@ const Sidebar = () => {
             ))}
         </div>
       </div>
+      <FreeCounter 
+        isPro={isPro}
+        apiLimitCount={apiLimitCount}
+      />
     </div>
   );
 };
